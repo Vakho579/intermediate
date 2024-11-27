@@ -1,0 +1,152 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+   
+    public class Book
+    {
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public int Year { get; set; }
+
+        public Book(string title, string author, int year)
+        {
+            this.Title = title;
+            this.Author = author;
+            this.Year = year;
+        }
+    }
+
+    static void Main()
+    {
+        List<Book> bookList = new List<Book>();
+        {
+            bookList.Add (new Book("1984", "George Orwell", 1949));
+            bookList.Add (new Book("To Kill a Mockingbird", "Harper Lee", 1960));
+            bookList.Add (new Book("The Catcher in the Rye", "J.D. Salinger", 1951));
+            bookList.Add (new Book("Pride and Prejudice", "Jane Austen", 1813));
+            bookList.Add (new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925));
+         }
+        
+        int choice;
+
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Book Management Aplication");
+            Console.WriteLine("1. Add a Book");
+            Console.WriteLine("2. View All Books");
+            Console.WriteLine("3. Search for a Book by Title");
+            Console.WriteLine("4. Exit");
+            Console.Write("Choose an option: ");
+
+
+            while (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > 4)
+            {
+                Console.WriteLine("Invalid input. Please enter a number between 1 and 4.");
+                Console.Write("Choose an option: ");
+            }
+
+            switch (choice)
+            {
+                case 1:
+                    //Console.Write("Enter the book title: ");
+                    //string title = Console.ReadLine();
+                    string title;
+                    while (true)
+                    {
+                        Console.Write("\nEnter the book title: ");
+                        title = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(title))
+                        {
+                            break; // If title is correct, exit the loop 
+                        }
+                        Console.WriteLine("title cannot be empty. Please enter a valid title.");
+                    }
+
+
+
+                    //Console.Write("Enter the author's name: ");
+                    //string author = Console.ReadLine();
+                    string author;
+                    while (true)
+                    {
+                        Console.Write("\nEnter the author's name: ");
+                        author = Console.ReadLine();
+                        if (!string.IsNullOrWhiteSpace(author))
+                        {
+                            break; // If author is correct, exit the loop 
+                        }
+                        Console.WriteLine("Author cannot be empty. Please enter a valid author.");
+                    }
+
+                    int year;
+                    while (true)
+                    {
+                        Console.Write("Enter the publication year: ");
+                        if (int.TryParse(Console.ReadLine(), out year))
+                        {
+                            int currentYear = DateTime.Now.Year;
+                            if (year > currentYear)
+                            {
+                                Console.WriteLine($"The year cannot be greater than {currentYear}. Please try again.");
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input. Please enter a valid year.");
+                        }
+                    }
+
+
+
+                    Book newBook = new Book(title, author, year);
+                    bookList.Add(newBook);
+                    Console.WriteLine("Book added successfully!");
+                    break;
+
+                case 2:
+                    Console.WriteLine("List of Books:");
+                    foreach (var book in bookList)
+                    {
+                        Console.WriteLine($"Title: {book.Title}, Author: {book.Author}, Year: {book.Year}");
+                    }
+                    break;
+
+                case 3:
+                    Console.Write("Enter the title of the book you want to search for: ");
+                    string searchTitle = Console.ReadLine().ToLower();
+
+                    var foundBooks = bookList.FindAll(b => b.Title.ToLower().Contains(searchTitle));
+                    if (foundBooks.Count > 0)
+                    {
+                        Console.WriteLine("Found Books:");
+                        foreach (var book in foundBooks)
+                        {
+                            Console.WriteLine($"Title: {book.Title}, Author: {book.Author}, Year: {book.Year}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No books found with that title.");
+                    }
+                    break;
+
+                case 4:
+                    
+                    Console.WriteLine("Goodbye!");
+                    return;
+            }
+
+            // Wait for user to press a key before clearing the console
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
+
+        }
+    }
+}
