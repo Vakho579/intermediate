@@ -51,8 +51,7 @@ class Program
             switch (choice)
             {
                 case 1:
-                    //Console.Write("Enter the book title: ");
-                    //string title = Console.ReadLine();
+
                     string title;
                     while (true)
                     {
@@ -60,15 +59,12 @@ class Program
                         title = Console.ReadLine();
                         if (!string.IsNullOrWhiteSpace(title))
                         {
-                            break; // If title is correct, exit the loop 
+                            break;  
                         }
                         Console.WriteLine("title cannot be empty. Please enter a valid title.");
                     }
 
 
-
-                    //Console.Write("Enter the author's name: ");
-                    //string author = Console.ReadLine();
                     string author;
                     while (true)
                     {
@@ -76,7 +72,7 @@ class Program
                         author = Console.ReadLine();
                         if (!string.IsNullOrWhiteSpace(author))
                         {
-                            break; // If author is correct, exit the loop 
+                            break; 
                         }
                         Console.WriteLine("Author cannot be empty. Please enter a valid author.");
                     }
